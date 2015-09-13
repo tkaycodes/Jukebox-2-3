@@ -8,9 +8,10 @@ $(document).ready(function() {
     event.preventDefault();
     var result = prompt("Enter a song");
       console.log("User entered: " + result);
-    var result2=parseNote(result);
+    var trimmedresult = result.trim();
+    var result2=parseNote(trimmedresult);
       console.log("After calling parseNote, we get: " + result2);
-    var parsedSong=parseSong(result);
+    var parsedSong=parseSong(trimmedresult);
     console.log("After calling parseSong, we get: " + parsedSong);
     $(this).html("Playing...");
     $(this).attr("Disabled", true);
@@ -29,9 +30,10 @@ $(document).ready(function() {
   $('#song-form').submit(function(event){
     event.preventDefault();
     var usersong=$('input[name="notes"]').val();
-    if (usersong){
-      console.log(usersong);
-      $('#song-queue').append('<li>'+usersong+'</li>');
+    var trimmed_usersong = usersong.trim();
+    if (trimmed_usersong){
+      console.log(trimmed_usersong);
+      $('#song-queue').append('<li>'+trimmed_usersong+'</li>');
       $('input[name="notes"]').val(" ");
     }
     else{
