@@ -58,8 +58,9 @@ $(document).ready(function() {
 
     }
     else if (trimmed_songnotes){
-      $('#song-queue').append('<li data-songnotes="'+trimmed_songnotes+'">'+ "<strong>SongName:</strong> (didnt specify)" +" " +  "<strong>SongNotes:</strong> " +  trimmed_songnotes +      '</li>');
-     
+      $('#song-queue').append('<li data-songnotes="' +trimmed_songnotes+ '" data-toggle="tooltip" title="Song notes: '+ trimmed_songnotes + '"><strong>Song name:</strong> (Didnt Specify)</li>');
+      $('li[data-toggle="tooltip"]').tooltip();
+
       $('input[name="song_name"]').val("").attr('placeholder', 'Enter song name(optional)');
       $('input[name="notes"]').val("").attr('placeholder', 'Enter song notes...');
 
