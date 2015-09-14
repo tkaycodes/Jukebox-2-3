@@ -6,12 +6,15 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.2/cyborg/bootstrap.min.css"/>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
+
     <!-- Custom styles -->
     <link rel="stylesheet" href="main.css"/>
 
     <!-- Include jQuery -->
     <script src="https://ajax.googleapis.com/ajax/
 libs/jquery/1.11.2/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <!-- Custom scripts -->
     <script src="player.js"></script>
@@ -21,22 +24,33 @@ libs/jquery/1.11.2/jquery.min.js"></script>
   <body>
     <div class="container">
 
-      <h1 class="page-header">
-        JukeBox
+    <h1 class="page-header">JukeBox
+      <!-- Play button -->
+      <button id="play-button" class="btn btn-lg btn-primary">Play All</button>
+    </h1>
+    <div class="well" id="nowplaying">Enter a song to play</div>
 
-        <!-- Play button -->
-        <button id="play-button" class="btn btn-lg btn-primary">Play All</button>
-      </h1>
+
 
       <!-- Song queue -->
       <ul id="song-queue"></ul>
 
       <!-- Song form -->
       <form id='song-form'>
-        <input name="notes" class="form-control" type="text" placeholder="Enter song notes..."/>
-        <input class="btn btn-default" type="submit" value="Add Song">
-        <button id="single-play-button" class="btn btn-primary">Play Single Song </button>
+        <div class="col-sm-12">
+          <input name="song_name" class="form-control" type="text" placeholder="Enter song name (optional)"></input>
+        </div>
+        <div class="col-sm-12">
+          <input name="notes" class="form-control" type="text" placeholder="Enter song notes..."></input>
+        </div>
+        <div class="col-sm-12" style="margin-bottom:10px">
+          <input class="btn btn-default" type="submit" value="Enqueue Song"></input>
+        </div>
       </form>
+
+      <hr style="width:100%;margin-top:75px;">
+   
+      <button id="single-play-button" class="btn btn-primary" style="float:right">Play Single Song</button>
 
     </div>
   </body>

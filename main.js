@@ -9,7 +9,7 @@ $(document).ready(function() {
   {
     event.preventDefault();
 
-    var result = prompt("Enter a song");
+    var result = prompt("Enter song note(s)");
     console.log("User entered: " + result);
     var trimmedresult = result.trim();
 
@@ -42,20 +42,32 @@ $(document).ready(function() {
   $('#song-form').submit(function(event)
   {
     event.preventDefault();
-    var usersong=$('input[name="notes"]').val();
-    var trimmed_usersong = usersong.trim();
-    if (trimmed_usersong)
+    var songname=$('input[name="song_name"]').val();
+    var trimmed_songname = songname.trim();
+    var songnotes=$('input[name="notes"]').val();
+    var trimmed_songnotes = songnotes.trim();
+    if (trimmed_songnotes && trimmed_songname)
     {
       // console.log(trimmed_usersong);
       // append user input as li into list of songs
-      $('#song-queue').append('<li>'+trimmed_usersong+'</li>');
-      // clear input
-      $('input[name="notes"]').val(" ");
+      $('#song-queue').append('<li data-songnotes="' +trimmed_songnotes+ '" data-songname="' +trimmed_songname+ '" data-toggle="tooltip" title="Song Notes: '+ trimmed_songnotes +'"><strong>SongName:</strong>"' + trimmed_songname+ '"</li>');
+      $('li[data-toggle="tooltip"]').tooltip();
+
+      $('input[name="song_name"]').val("").attr('placeholder', 'Enter song name(optional)');
+      $('input[name="notes"]').val("").attr('placeholder', 'Enter song notes...');
+
+    }
+    else if (trimmed_songnotes){
+      $('#song-queue').append('<li data-songnotes="'+trimmed_songnotes+'">'+ "<strong>SongName:</strong> (didnt specify)" +" " +  "<strong>SongNotes:</strong> " +  trimmed_songnotes +      '</li>');
+     
+      $('input[name="song_name"]').val("").attr('placeholder', 'Enter song name(optional)');
+      $('input[name="notes"]').val("").attr('placeholder', 'Enter song notes...');
+
     }
     else
     {
       // if empty input and user clicked submit
-      alert("You didnt enter a song");
+      alert("You didnt enter any song notes");
     }
   });
 
@@ -70,30 +82,30 @@ $(document).ready(function() {
     // if there are songs in the list
     if ($('#song-queue').children().length > 0)
     {
-    $('#play-button').slideUp();
-
-    console.log($($('#song-queue')).children().html());
-
-    var first_song=$('#song-queue').children().first().html();
-    console.log(first_song);
-    var parsed=parseSong(first_song);
-    playSong(parsed, 400, songDone);
-
-    // }
-
+      $('#play-button').slideUp();
+      // console.log($($('#song-queue')).children().html());
+      var first_song=$('#song-queue').children().first().attr("data-songnotes");
+      console.log(first_song);
+      var parsed=parseSong(first_song);
+      playSong(parsed, 400, songDone);
+      $('#nowplaying').html('<strong>Now Playing: ' + $('#song-queue').children().first().attr("data-songname")   +'</strong>');
     }
     else
     {
       // if no songs in list
+      alert("No Songs in Queue");
       $('#play-button').slideDown();
     }
 
   }
 
-  //call back for when song is done playing, remove the song from dom
-  songDone = function(){
+  //call back for playSong function
+  songDone = function()
+  {
     $('#song-queue').children().first().remove();
-    handlePlayAll();
+    $('#nowplaying').html("Enter a song to play");
+    // recursively call setTimeout again after 1 second
+    setTimeout(handlePlayAll ,1000);
   };
 
 

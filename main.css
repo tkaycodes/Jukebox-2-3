@@ -18,7 +18,7 @@
   cursor: pointer;
 }
 
-#song-form input[name="notes"] {
+#song-form input[name="notes"], input[name="song_name"] {
   max-width: 500px;
   margin-right: 1em;
   float: left;
