@@ -50,7 +50,7 @@ $(document).ready(function() {
     {
       // console.log(trimmed_usersong);
       // append user input as li into list of songs
-      $('#song-queue').append('<li data-songnotes="' +trimmed_songnotes+ '" data-songname="' +trimmed_songname+ '" data-toggle="tooltip" title="Song Notes: '+ trimmed_songnotes +'"><strong>SongName:</strong>"' + trimmed_songname+ '"</li>');
+      $('#song-queue').append('<li data-songnotes="' +trimmed_songnotes+ '" data-songname="' +trimmed_songname+ '" data-toggle="tooltip" title="Song notes: '+ trimmed_songnotes +'"><strong>Song name:</strong> ' + trimmed_songname+ '</li>');
       $('li[data-toggle="tooltip"]').tooltip();
 
       $('input[name="song_name"]').val("").attr('placeholder', 'Enter song name(optional)');
@@ -70,6 +70,8 @@ $(document).ready(function() {
       alert("You didnt enter any song notes");
     }
   });
+
+
 
 
 
@@ -107,6 +109,27 @@ $(document).ready(function() {
     // recursively call setTimeout again after 1 second
     setTimeout(handlePlayAll ,1000);
   };
+
+
+
+
+
+
+  // Space bar trigger playall songs
+
+  $('body').keydown(function(event){
+    var trigger = $(event.target);
+    // if space bar pressed and event.target was not input 
+    if (event.which === 32 && !trigger.is("input[class='form-control']"))
+    {
+      // console.log(trigger);
+      // console.log(trigger == 'input');
+      console.log("clicked spacebar");
+      handlePlayAll();
+    }
+  });
+
+
 
 
 });
